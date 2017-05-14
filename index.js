@@ -17,9 +17,10 @@ module.exports = () =>
           exec('git status --porcelain') :
           Promise.reject(new Error(`Branch name is ${branch.trim()}`))
       )
-      .then(empty => empty === '' ?
-        exec('git diff HEAD FETCH_HEAD') :
-        Promise.reject(new Error('Branch is not clean'))
+      .then(empty =>
+        empty === '' ?
+          exec('git diff HEAD FETCH_HEAD') :
+          Promise.reject(new Error('Branch is not clean'))
       )
       .then(empty =>
         empty === '' ?
