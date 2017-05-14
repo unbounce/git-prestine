@@ -16,7 +16,18 @@ module.exports = () =>
       );
 
     return exec(fetch).then(() => exec(currentBranchName))
-      .then(master => master === 'master\n' ? exec(porcelain) : Promise.reject(false))
-      .then(empty => empty === '' ? exec(upToDate) : Promise.reject(false))
-      .then(empty => empty === '' ? Promise.resolve(true) : Promise.reject(false));
+      .then(branch =>
+        branch.trim() === 'master' ?
+          exec(porcelain) :
+          Promise.reject(new Error(`Branch name is ${branch.trim()}`))
+      )
+      .then(empty => empty === '' ?
+        exec(upToDate) :
+        Promise.reject(new Error('Branch is not clean'))
+      )
+      .then(empty =>
+        empty === '' ?
+          Promise.resolve(true) :
+          Promise.reject(new Error('Branch is not up-to-date with origin'))
+        );
   });
