@@ -1,11 +1,11 @@
-### git-prestine
+### git-pristine
 
 A function that returns a rejected promise if you're not on a clean, up-to-date master branch
 
 ### Install
 
 ```
-yarn install git-prestine
+yarn install git-pristine
 ```
 
 ### Usage
@@ -13,9 +13,9 @@ yarn install git-prestine
 To use just require and call
 
 ```js
-const prestine = require('git-prestine');
+const pristine = require('git-pristine');
 
-await prestine(); // throws if not clean, up-to-date, master
+await pristine(); // throws if not clean, up-to-date, master
 ```
 
 There is also a Gulp plugin for build scripts.
@@ -23,11 +23,11 @@ There is also a Gulp plugin for build scripts.
 ```js
 const gulp = require('gulp');
 const webpack = require('gulp-webpack');
-const prestine = require('git-prestine/gulp');
+const pristine = require('git-pristine/gulp');
 
 gulp.task('build', function() {
   return gulp.src('./src/index.js')
-    .pipe(prestine()) // task fails if not clean, up-to-date, master
+    .pipe(pristine()) // task fails if not clean, up-to-date, master
     .pipe(webpack())
     .pipe(gulp.dest('dist/'));
 });
